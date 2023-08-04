@@ -1,5 +1,5 @@
-#ifndef CALIBRATED_RADIX_H
-#define CALIBRATED_RADIX_H
+#ifndef CALIBRATED_RADIX_HPP
+#define CALIBRATED_RADIX_HPP
 
 #include <algorithm>
 #include <cmath>
