@@ -1,3 +1,6 @@
+#ifndef RADIX_H
+#define RADIX_H
+
 #include <algorithm>
 #include <cmath>
 #include <cstring>
@@ -19,7 +22,7 @@ void radix(iterator begin, iterator end){
 	size_t size = (end - begin);
 
 	Type max = *std::max_element(begin, end);
-	if(max == 0) return;
+	if(max < 1) return;
 
 	// The complexity function (N + base) * floor(log(V) / log(base) + 1)
 
@@ -30,16 +33,17 @@ void radix(iterator begin, iterator end){
 	// Calculate optimal base, loop until the ith root of V is less than 3
 	// The base should be smaller than max value, using the same integer Type for the base is sufficient
 	
-	Type base = 2, lim = log(max, 3);
+	Type base = 2, lim = log(max, Type(3));
 
 	for(Type i = 1; i <= lim; ++i) {
-		Type new_base = pow(max, 1.0 / i), current = f(base);
+		Type current = f(base), new_base = pow(max, 1.0 / i);
+		if(new_base < 2) break;
 
 		// Since the base value is integer, we need to check the min value of {new_base - 1, new_base, new_base + 1}
 
 		if(f(new_base) < current) base = new_base;
 		if(f(new_base + 1) < current) base = new_base + 1;
-		if(new_base > 2 && (new_base - 1) < current) base = new_base - 1;
+		if(new_base > 2 && f(new_base - 1) < current) base = new_base - 1;
 	}
 
 	size_t *bucket = new size_t[base]();
@@ -78,3 +82,5 @@ void radix(iterator begin, iterator end){
 	delete[] bucket;
 	delete[] temp;
 }
+
+#endif

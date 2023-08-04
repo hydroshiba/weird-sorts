@@ -9,7 +9,7 @@
 #include <random>
 
 int main() {
-    int n = 10000000;
+    int n = 100000000;
     std::vector<int> vec(n);
 
     std::iota(vec.begin(), vec.end(), 1);
