@@ -1,5 +1,5 @@
-#ifndef RADIX_H
-#define RADIX_H
+#ifndef CALIBRATED_RADIX_H
+#define CALIBRATED_RADIX_H
 
 #include <algorithm>
 #include <cmath>
@@ -13,8 +13,6 @@ template<typename Type>
 unsigned int log(Type N, Type base) {
 	return (N ? 1 + log(N / base, base) : 0);
 }
-
-// The core sorting algorithm
 
 template<typename iterator>
 void radix(iterator begin, iterator end){
@@ -45,6 +43,8 @@ void radix(iterator begin, iterator end){
 		if(f(new_base + 1) < current) base = new_base + 1;
 		if(new_base > 2 && f(new_base - 1) < current) base = new_base - 1;
 	}
+
+	// Sorting process
 
 	size_t *bucket = new size_t[base]();
 	Type *temp = new Type[size]();
